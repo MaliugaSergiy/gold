@@ -11,6 +11,7 @@
 	<link rel="stylesheet" href="remodal/remodal-default-theme.css">
 	<link rel="stylesheet" href="nice-select.css">
 	<link rel="stylesheet" href="pop-up.css">
+	<link rel="stylesheet" href="deliv.css">
 </head>
 
 <body>
@@ -20,7 +21,7 @@
 		<div class="credit_header">
 			<div class="wr">
 				<div class="roww name">Выберите условия для кредитования</div>
-				<div class="roww under_name">Кредит оформляется на безналичную стоимость товара - <span>6 992</span> грн.</div>
+				<div class="roww under_name">Кредит оформляется на безналичную стоимость товара - <span id="mainPrice">7 987</span> грн.</div>
 			</div>
 		</div>
 		<div class="credit_content">
@@ -31,8 +32,8 @@
 						<div class="call_under_name"></div>
 					</div>
 					<div class="colll colll2">
-						<div class="select_wrapper">
-							<select name="" id="select_option" class="select_option nice_select">
+						<div class="select_wrapper ">
+							<select name="" id="select_option1" class="select_option nice_select">
 								<option value="3">3 мес.</option>
 								<option value="6">6 мес.</option>
 								<option value="9">9 мес.</option>
@@ -43,12 +44,12 @@
 								<option value="24">24 мес.</option>
 							</select>
 						</div>
-						<input class="select_range" type="range" min="3" // default 0 max="24" // default 100 step="3" // default 1 value="12" // default min + (max-min)/2 data-orientation="vertical" // default horizontal>
+						<input id="range1" class="select_range" type="range" min="3" max="24" step="3" value="12" data-orientation="vertical">
 						<div class="range_marker start_range">3 мес.</div>
 						<div class="range_marker end_range">24 мес.</div>
 					</div>
 					<div class="colll colll3 price">
-						<p><span>1 238</span> грн/мес</p>
+						<p><span id="partPrice1" class="partPrice">1 238</span> грн/мес</p>
 					</div>
 					<div class="colll colll4">
 						<button type="submit" data-remodal-action="confirm" class="cr_btn">купить</button>
@@ -58,11 +59,11 @@
 				<form action="" class="item_cr">
 					<div class="colll colll1">
 						<div class="call_name">МГНОВЕННАЯ РАССРОЧКА</div>
-						<div class="call_under_name">комиссия банка - 2,9% </div>
+						<div class="call_under_name">комиссия банка - <span id="bankComission">2,9</span>% </div>
 					</div>
 					<div class="colll colll2">
 						<div class="select_wrapper">
-							<select name="" id="select_option" class="select_option nice_select">
+							<select name="" id="select_option2" class="select_option nice_select">
 								<option value="3">3 мес.</option>
 								<option selected="selected" value="6">6 мес.</option>
 								<option value="9">9 мес.</option>
@@ -73,12 +74,12 @@
 								<option value="24">24 мес.</option>
 							</select>
 						</div>
-						<input class="select_range" type="range" min="3" // default 0 max="24" // default 100 step="3" // default 1 value="6" // default min + (max-min)/2 data-orientation="vertical" // default horizontal>
+						<input id="range2" class="select_range" type="range" min="3" max="24" step="3" value="6" data-orientation="vertical">
 						<div class="range_marker start_range">3 мес.</div>
 						<div class="range_marker end_range">24 мес.</div>
 					</div>
 					<div class="colll colll3 price">
-						<p><span>903</span> грн/мес</p>
+						<p><span id="partPrice2" class="partPrice">903</span> грн/мес</p>
 					</div>
 					<div class="colll colll4">
 						<button type="submit" data-remodal-action="confirm" class="cr_btn">купить</button>
@@ -94,54 +95,236 @@
 		</div>
 	</div>
 
+	<div class="wrrr">
+		<div class="content_delivery">
+			<input id="month_del" value="18" type="text">
+			<input id="credit_persent" value="2.9" type="text">
+			<div class="colll coll1">
+				<div class="select_wrapper ">
+					<select name="" id="select_option3" class="select_option nice_select">
+						<option value="3">3 мес.</option>
+						<option value="6">6 мес.</option>
+						<option value="9">9 мес.</option>
+						<option selected value="12">12 мес.</option>
+						<option  value="15">15 мес.</option>
+						<option value="18">18 мес.</option>
+						<option value="21">21 мес.</option>
+						<option value="24">24 мес.</option>
+					</select>
+				</div>
+				<input id="range3" class="select_range" type="range" min="3" max="24" step="3" value="12" data-orientation="vertical">
+				<div class="range_marker start_range">3 мес.</div>
+				<div class="range_marker end_range">24 мес.</div>
+			</div>
+			<div class="colll coll2">
+				<p><span id="partPrice3" class="partPrice">903</span> грн/мес</p>
+			</div>
+		</div>
+	</div>
+
 	<script src="remodal/jquery-3.2.1.min.js"></script>
 	<script src="remodal/remodal.js"></script>
 	<script src="jquery.nice-select.min.js"></script>
 
-
 	<script>
-		$(document).ready(function() {
-			//seting value of range to input select
-			// при изменени значения range, меняем соответствующие ему значения:
-			//*(1) - значение option
-			//*(2) - заголовок дропДаун меню
-			//*(3) - активный эллемент у дропДаун меню
-			$(".select_range").on("input", function() {
-				var
-					//текущее значение (value) range
-					$curentRange = $(this).val(),
+		
+
+
+	</script>
+	<script>
+		$(".nice_select").niceSelect();
+
+
+
+		function ready() {
+
+
+			var calculated_credit_price = +(document.getElementById("mainPrice").innerText.split(" ").join("")),
+				credit_persent = +(document.getElementById("credit_persent").value.split(" ").join("")),
+				calculatedPersebtPrice = calculated_credit_price + calculated_credit_price * credit_persent / 100;
+			
+			//start values
+			document.getElementById("range3").value = document.getElementById("month_del").value;
+			document.getElementById("select_option3").value = document.getElementById("month_del").value;
+			document.querySelectorAll("span#partPrice3")[0].innerHTML = (Math.ceil(calculatedPersebtPrice *100/ document.getElementById("month_del").value)/100).toFixed(2);
+
+			// handler on range change
+			document.getElementById("range3").addEventListener("input", function() {
+				actionByChangingRanre(this);
+				document.getElementById("partPrice3").innerHTML = (Math.round(calculatedPersebtPrice / this.value) );
+			});
+			
+			// handler on select changes
+			document.querySelectorAll("select.select_option")[1].addEventListener("change", function() {
+				var dataValue = this.value;
+				this.closest(".colll").querySelectorAll("input#range3")[0].value = this.value;
+				//this.parentNode.parentNode.children[1].value = this.value;
+				this.closest(".colll").querySelectorAll("span#partPrice3")[0].innerHTML = (Math.round(calculatedPersebtPrice / dataValue) );
+				//this.parentNode.parentNode.parentNode.children[2].children[0].children[0].innerHTML = Math.ceil((mainPrice / 24) * dataValue);
+			});
+
+
+			//___________________________ ACTIONS BY DROPP-DOWN MENU CHANGES
+			document.querySelectorAll(".content_delivery")[0].addEventListener("click", function(e) {
+				
+				
+				var target = e.target,
+					formTag = target.closest(".content_delivery"),
+					bankComissionTag = formTag.querySelectorAll("#bankComission")[0],
+					partPriceTag = formTag.querySelectorAll("span.partPrice")[0];
+					
+				if (target.tagName != "LI") return;
+					console.log(formTag);
+				var dataValue = target.getAttribute("data-value"),
+					setRange = target.closest(".colll").querySelectorAll("input.select_range")[0];
+				setRange.value = dataValue;
+
+					partPriceTag.innerText = (Math.ceil(calculatedPersebtPrice * 100 / dataValue) / 100).toFixed(2);
+
+			});
+
+
+
+
+
+
+
+
+			//$("body").append('<div class="remodal content_delivery">');
+
+			var mainPrice = +(document.getElementById("mainPrice").innerText.split(" ").join("")),
+				bankComission = document.getElementById("bankComission").innerText.split(",").join("."),
+				calculatedPrice = mainPrice + mainPrice * bankComission / 100;
+
+			// set start value of part prices
+			//document.getElementById("partPrice1").innerHTML = (Math.ceil(mainPrice * 100 / document.getElementById("select_option1").value) / 100).toFixed(2);
+			document.getElementById("partPrice1").innerHTML = (Math.round(mainPrice  / document.getElementById("select_option1").value) );
+			document.getElementById("partPrice2").innerHTML = (Math.round(calculatedPrice  / document.getElementById("select_option2").value) );
+
+
+			//___________________________ ACTIONS BY INPUT-RANGE CHANGES 
+			document.getElementById("range1").addEventListener("input", function() {
+				actionByChangingRanre(this);
+				document.getElementById("partPrice1").innerHTML = (Math.round(mainPrice / this.value));
+			});
+			document.getElementById("range2").addEventListener("input", function() {
+				actionByChangingRanre(this);
+				document.getElementById("partPrice2").innerHTML = (Math.round(calculatedPrice / this.value));
+			});
+
+			function actionByChangingRanre(this1) {
+				var //текущее значение (value) range
+					curentRange = this1.value,
 					// заголовок дроппДаун меню
-					$curentVal = $(this).parent().children().eq(0).children().eq(1).children().eq(0),
+					//curentVal = this1.parentNode.children[0].children[1].children[0], //
+					curentVal = this1.closest(".colll").querySelectorAll("span.current")[0], //
 					// select node 
-					$selectNode = $(this).parent().children().eq(0).children().eq(0),
+					//selectNode = this1.parentNode.children[0].children[0],
+					selectNode = this1.closest(".colll").querySelectorAll("select.select_option")[0],
 					// select массив
-					$selectArr = $selectNode.children(),
+					selectArr = selectNode.children,
+					selectOptions = selectNode.options,
 					// значение option select'a который соответствует текущему значению input range
-					$newCurentVal,
+					newCurentVal,
 					// массив ul дроппДаун меню
-					$arrUl = $(this).parent().children().eq(0).children().eq(1).children().eq(1).children();
-				for (var i = 0; i < $selectArr.length; i++) {
-					if ($selectArr.eq(i).val() == $(this).val()) {
-						$newCurentVal = $selectArr.eq(i).html();
-						// заменяем у select значение selected
-						$selectNode.val($curentRange); //*(1)
-					}
-					if ($arrUl.eq(i).attr("data-value") == $(this).val()) {
-						$arrUl.eq(i).addClass("selected").siblings().removeClass("selected"); //*(3)
+					//arrUl = this1.parentNode.children[0].children[1].children[1].children; //
+					arrUl = this1.closest(".colll").querySelectorAll("li.option");
+
+				for (var i = 0; i < selectOptions.length; i++) {
+
+					if (selectArr[i].value == this1.value) {
+						newCurentVal = selectOptions[i].innerHTML;
+						curentVal.innerHTML = newCurentVal;
+						selectNode.value = curentRange;
+						//selectArr[i].setAttribute("selected");
+					};
+					if (arrUl[i].getAttribute("data-value") == this1.value) {
+						for (var j = 0; j < arrUl.length; j++) {
+							arrUl[j].classList.remove("selected");
+						}
+						arrUl[i].classList.add("selected");
 					}
 				}
-				// заменяем заголовок дроппДаун меню значением option select'a который соответствует текущему значению input range
-				$curentVal.html($newCurentVal); //*(2)
+			}
+
+			//___________________________ ACTIONS BY SELECT CHANGES
+			document.querySelectorAll("select.select_option")[0].addEventListener("change", function() {
+				var dataValue = this.value;
+				this.closest(".colll").querySelectorAll("input#range1")[0].value = this.value;
+				//this.parentNode.parentNode.children[1].value = this.value;
+				this.closest("form").querySelectorAll("span#partPrice1")[0].innerHTML = (Math.round(mainPrice / dataValue) );
+				//this.parentNode.parentNode.parentNode.children[2].children[0].children[0].innerHTML = Math.ceil((mainPrice / 24) * dataValue);
 			});
 
-			//обратная задача, при выборе элемента из дроппДаун меню, меняем значение range и option
-			$(".select_option").on("change", function() {
-				$(this).parent().parent().children().eq(1).val($(this).val());
+			document.querySelectorAll("select.select_option")[1].addEventListener("change", function() {
+				var dataValue = this.value;
+				this.closest(".colll").querySelectorAll("input#range2")[0].value = this.value;
+				this.closest("form").querySelectorAll("span#partPrice2")[0].innerHTML = (Math.round(calculatedPrice / dataValue) );
 			});
 
-			$(".nice_select").niceSelect();
+			//___________________________ ACTIONS BY DROPP-DOWN MENU CHANGES
+			document.querySelectorAll(".credit_content")[0].addEventListener("click", function(e) {
+				var target = e.target,
+					formTag = target.closest("form"),
+					bankComissionTag = formTag.querySelectorAll("#bankComission")[0],
+					partPriceTag = formTag.querySelectorAll("span.partPrice")[0];
 
-		})
+				if (target.tagName != "LI") return;
+
+				var dataValue = target.getAttribute("data-value"),
+					setRange = target.closest(".colll").querySelectorAll("input.select_range")[0];
+				setRange.value = dataValue;
+				if (bankComissionTag) {
+					partPriceTag.innerText = (Math.round(calculatedPrice / dataValue) );
+				} else {
+					partPriceTag.innerText = (Math.round(mainPrice / dataValue) );
+				}
+			});
+
+			// при загрузке cтраницы, а так же при ресайзинге по ширине, запускаем проверку на браузер и ширину экрана
+			function defineDeviceAndSize() {
+				$(".nice-select").removeClass("open");
+				if (/Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent) && window.innerWidth < 750) {
+					$('.nice_select').niceSelect('destroy');
+					$('.content_delivery .select_wrapper').addClass('only_mob');
+				} else {
+					if ($(".nice_select")) {
+						$('select').niceSelect();
+						$('.content_delivery .select_wrapper').removeClass('only_mob');
+					}
+				}
+			}
+			defineDeviceAndSize();
+
+			window.addEventListener('resize', function(event) {
+				defineDeviceAndSize();
+			});
+		}
+		document.addEventListener("DOMContentLoaded", ready);
+
+
+
+
+		//___________________________ ACTIONS BY DROPP-DOWN MENU CHANGES
+		//        var optionCollection = document.getElementsByClassName("option");
+		//        for (var i = 0; i < optionCollection.length; i++) {
+		//            optionCollection[i].addEventListener("click", function() {
+		//                var dataValue = this.getAttribute("data-value"),
+		//                    //setRange = this.parentNode.parentNode.parentNode.parentNode.children[1];
+		//                    setRange = this.closest(".colll").querySelectorAll("input.select_range")[0];
+		//                setRange.value = dataValue;
+		//
+		//                //if (this.parentNode.parentNode.parentNode.parentNode.parentNode.children[0].children[1].children[0]) {
+		//                if (this.closest("form").querySelectorAll("#bankComission")[0]) {
+		//                    //this.parentNode.parentNode.parentNode.parentNode.parentNode.children[2].children[0].children[0].innerText = Math.ceil((calculatedPrice / 24) * dataValue);
+		//                    this.closest("form").querySelectorAll("span.partPrice")[0].innerText = Math.ceil((calculatedPrice / 24) * dataValue);
+		//                } else {
+		//                    //this.parentNode.parentNode.parentNode.parentNode.parentNode.children[2].children[0].children[0].innerText = Math.ceil((mainPrice / 24) * dataValue);
+		//                    this.closest("form").querySelectorAll("span.partPrice")[0].innerText = Math.ceil((mainPrice / 24) * dataValue);
+		//                }
+		//
+		//            });
+		//        }
 
 	</script>
 </body>
