@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<title>Document</title>
+
+	<link rel="stylesheet" href="remodal/remodal.css">
+	<link rel="stylesheet" href="remodal/remodal-default-theme.css">
+	<link rel="stylesheet" href="nice-select.css">
+	<link rel="stylesheet" href="pop-up.css">
+</head>
+
+<body>
+	<a data-remodal-target="modal" href="#">Call pop-up</a>
+	<div class="remodal remodal-credit" data-remodal-id="modal">
+		<button data-remodal-action="close" class="remodal-close"></button>
+		<div class="credit_header">
+			<div class="wr">
+				<div class="roww name">Выберите условия для кредитования</div>
+				<div class="roww under_name">Кредит оформляется на безналичную стоимость товара - <span>6 992</span> грн.</div>
+			</div>
+		</div>
+		<div class="credit_content">
+			<div class="wr">
+				<form action="" class="item_cr">
+					<div class="colll colll1">
+						<div class="call_name">Оплата частями</div>
+						<div class="call_under_name"></div>
+					</div>
+					<div class="colll colll2">
+						<div class="select_wrapper">
+							<select name="" id="select_option" class="select_option nice_select">
+								<option value="3">3 мес.</option>
+								<option value="6">6 мес.</option>
+								<option value="9">9 мес.</option>
+								<option selected value="12">12 мес.</option>
+								<option  value="15">15 мес.</option>
+								<option value="18">18 мес.</option>
+								<option value="21">21 мес.</option>
+								<option value="24">24 мес.</option>
+							</select>
+						</div>
+						<input class="select_range" type="range" min="3" // default 0 max="24" // default 100 step="3" // default 1 value="12" // default min + (max-min)/2 data-orientation="vertical" // default horizontal>
+						<div class="range_marker start_range">3 мес.</div>
+						<div class="range_marker end_range">24 мес.</div>
+					</div>
+					<div class="colll colll3 price">
+						<p><span>1 238</span> грн/мес</p>
+					</div>
+					<div class="colll colll4">
+						<button type="submit" data-remodal-action="confirm" class="cr_btn">купить</button>
+					</div>
+				</form>
+
+				<form action="" class="item_cr">
+					<div class="colll colll1">
+						<div class="call_name">МГНОВЕННАЯ РАССРОЧКА</div>
+						<div class="call_under_name">комиссия банка - 2,9% </div>
+					</div>
+					<div class="colll colll2">
+						<div class="select_wrapper">
+							<select name="" id="select_option" class="select_option nice_select">
+								<option value="3">3 мес.</option>
+								<option selected="selected" value="6">6 мес.</option>
+								<option value="9">9 мес.</option>
+								<option  value="12">12 мес.</option>
+								<option  value="15">15 мес.</option>
+								<option value="18">18 мес.</option>
+								<option value="21">21 мес.</option>
+								<option value="24">24 мес.</option>
+							</select>
+						</div>
+						<input class="select_range" type="range" min="3" // default 0 max="24" // default 100 step="3" // default 1 value="6" // default min + (max-min)/2 data-orientation="vertical" // default horizontal>
+						<div class="range_marker start_range">3 мес.</div>
+						<div class="range_marker end_range">24 мес.</div>
+					</div>
+					<div class="colll colll3 price">
+						<p><span>903</span> грн/мес</p>
+					</div>
+					<div class="colll colll4">
+						<button type="submit" data-remodal-action="confirm" class="cr_btn">купить</button>
+					</div>
+				</form>
+			</div>
+		</div>
+
+		<div class="credit_footer">
+			<div class="wr">
+				<p>Для оформления кредита необходимо нажать кнопку “Купить”, перейти к оформлению заказа, либо продолжить покупки и добавить дополнительный товар в “Корзину”, заполнить анкету и отправить на рассмотрение. После этого с Вами свяжется сотрудник для уточнения данных.</p>
+			</div>
+		</div>
+	</div>
+
+	<script src="remodal/jquery-3.2.1.min.js"></script>
+	<script src="remodal/remodal.js"></script>
+	<script src="jquery.nice-select.min.js"></script>
+
+
+	<script>
+		$(document).ready(function() {
+			//seting value of range to input select
+			// при изменени значения range, меняем соответствующие ему значения:
+			//*(1) - значение option
+			//*(2) - заголовок дропДаун меню
+			//*(3) - активный эллемент у дропДаун меню
+			$(".select_range").on("input", function() {
+				var
+					//текущее значение (value) range
+					$curentRange = $(this).val(),
+					// заголовок дроппДаун меню
+					$curentVal = $(this).parent().children().eq(0).children().eq(1).children().eq(0),
+					// select node 
+					$selectNode = $(this).parent().children().eq(0).children().eq(0),
+					// select массив
+					$selectArr = $selectNode.children(),
+					// значение option select'a который соответствует текущему значению input range
+					$newCurentVal,
+					// массив ul дроппДаун меню
+					$arrUl = $(this).parent().children().eq(0).children().eq(1).children().eq(1).children();
+				for (var i = 0; i < $selectArr.length; i++) {
+					if ($selectArr.eq(i).val() == $(this).val()) {
+						$newCurentVal = $selectArr.eq(i).html();
+						// заменяем у select значение selected
+						$selectNode.val($curentRange); //*(1)
+					}
+					if ($arrUl.eq(i).attr("data-value") == $(this).val()) {
+						$arrUl.eq(i).addClass("selected").siblings().removeClass("selected"); //*(3)
+					}
+				}
+				// заменяем заголовок дроппДаун меню значением option select'a который соответствует текущему значению input range
+				$curentVal.html($newCurentVal); //*(2)
+			});
+
+			//обратная задача, при выборе элемента из дроппДаун меню, меняем значение range и option
+			$(".select_option").on("change", function() {
+				$(this).parent().parent().children().eq(1).val($(this).val());
+			});
+
+			$(".nice_select").niceSelect();
+
+		})
+
+	</script>
+</body>
+
+</html>
